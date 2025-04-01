@@ -1,62 +1,47 @@
 
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>QR Etiket A4 - Responsive</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Etiket A4 - Hassas Ayar</title>
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
-  <style>
+
+<style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
+      padding: 1cm;
       margin: 0;
-      padding: 1rem;
-      background: #f9f9f9;
-      color: #333;
     }
 
+  @media print {
+    #visit-counter {
+      display: none;
+    }
+  }
+
     #controls {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     input {
       font-size: 16px;
-      padding: 10px;
-      width: 90%;
-      max-width: 400px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      padding: 6px;
+      width: 400px;
     }
 
     button {
-      padding: 10px 20px;
+      padding: 6px 12px;
       font-size: 16px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-
-    button:hover {
-      background-color: #0056b3;
     }
 
     #printArea {
+      width: 210mm;
+      height: 297mm;
       display: grid;
-      justify-content: center;
-      grid-template-columns: repeat(auto-fit, minmax(80px, 2.80cm));
+      grid-template-columns: repeat(6, 2.80cm);
       grid-auto-rows: 2.80cm;
       gap: 5mm;
       box-sizing: border-box;
-      width: 100%;
-      max-width: 210mm;
-      margin: auto;
     }
 
     .label {
@@ -69,7 +54,6 @@
       justify-content: start;
       box-sizing: border-box;
       padding-top: 1.5mm;
-      background: white;
     }
 
     .qr {
@@ -88,19 +72,11 @@
       white-space: nowrap;
     }
 
-    #visit-counter {
-      text-align: center;
-      font-size: 12px;
-      margin-top: 20px;
-      color: #555;
-    }
-
     @media print {
-      #controls, #visit-counter {
+      #controls {
         display: none;
       }
       body {
-        padding: 0;
         margin: 0;
       }
     }
