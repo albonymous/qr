@@ -1,40 +1,62 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>QR Etiket A4 - Hassas Ayar</title>
+  <title>QR Etiket A4 - Responsive</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 1cm;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
+      padding: 1rem;
+      background: #f9f9f9;
+      color: #333;
     }
 
     #controls {
-      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 20px;
     }
 
     input {
       font-size: 16px;
-      padding: 6px;
-      width: 400px;
+      padding: 10px;
+      width: 90%;
+      max-width: 400px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
 
     button {
-      padding: 6px 12px;
+      padding: 10px 20px;
       font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
     }
 
     #printArea {
-      width: 210mm;
-      height: 297mm;
       display: grid;
-      grid-template-columns: repeat(6, 2.80cm);
+      justify-content: center;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 2.80cm));
       grid-auto-rows: 2.80cm;
       gap: 5mm;
       box-sizing: border-box;
+      width: 100%;
+      max-width: 210mm;
+      margin: auto;
     }
 
     .label {
@@ -47,6 +69,7 @@
       justify-content: start;
       box-sizing: border-box;
       padding-top: 1.5mm;
+      background: white;
     }
 
     .qr {
@@ -65,11 +88,19 @@
       white-space: nowrap;
     }
 
+    #visit-counter {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 20px;
+      color: #555;
+    }
+
     @media print {
-      #controls {
+      #controls, #visit-counter {
         display: none;
       }
       body {
+        padding: 0;
         margin: 0;
       }
     }
@@ -84,6 +115,13 @@
 </div>
 
 <div id="printArea"></div>
+
+<div id="visit-counter">
+  Bugün: <span id="busuanzi_value_site_pv">-</span> ziyaretçi |
+  Toplam: <span id="busuanzi_value_site_uv">-</span> kişi
+</div>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <script>
   const input = document.getElementById('barcodeInput');
@@ -121,7 +159,7 @@
 
       new QRCode(qrDiv, {
         text: value,
-        width: 77,  // 2.03cm ≈ 77px
+        width: 77,
         height: 77,
         correctLevel: QRCode.CorrectLevel.H
       });
