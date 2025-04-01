@@ -3,35 +3,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>QR Etiket A4 - Hassas Ayar</title>
+  <title>QR Etiket A4 - Responsive Sayaçlı</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
-
-<style>
+  <style>
     body {
       font-family: Arial, sans-serif;
       padding: 1cm;
       margin: 0;
+      background: #f8f8f8;
     }
-
-  @media print {
-    #visit-counter {
-      display: none;
-    }
-  }
 
     #controls {
       margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
     }
 
     input {
       font-size: 16px;
-      padding: 6px;
-      width: 400px;
+      padding: 10px;
+      width: 90%;
+      max-width: 400px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
 
     button {
-      padding: 6px 12px;
+      padding: 10px 20px;
       font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
     }
 
     #printArea {
@@ -42,6 +54,7 @@
       grid-auto-rows: 2.80cm;
       gap: 5mm;
       box-sizing: border-box;
+      margin: auto;
     }
 
     .label {
@@ -54,6 +67,7 @@
       justify-content: start;
       box-sizing: border-box;
       padding-top: 1.5mm;
+      background: white;
     }
 
     .qr {
@@ -72,8 +86,15 @@
       white-space: nowrap;
     }
 
+    #visit-counter {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 20px;
+      color: #666;
+    }
+
     @media print {
-      #controls {
+      #controls, #visit-counter {
         display: none;
       }
       body {
@@ -93,8 +114,8 @@
 <div id="printArea"></div>
 
 <div id="visit-counter">
-  Bugün: <span id="busuanzi_value_site_pv">-</span> ziyaretçi |
-  Toplam: <span id="busuanzi_value_site_uv">-</span> kişi
+  Bugün: <span id="busuanzi_value_site_pv">-</span> görüntüleme |
+  Toplam: <span id="busuanzi_value_site_uv">-</span> kullanıcı
 </div>
 
 <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -121,21 +142,17 @@
       const qrDiv = document.createElement('div');
       qrDiv.className = 'qr';
 
-      const spacer = document.createElement('div');
-      spacer.className = 'spacer';
-
       const caption = document.createElement('div');
       caption.className = 'caption';
       caption.textContent = value;
 
       label.appendChild(qrDiv);
-      label.appendChild(spacer);
       label.appendChild(caption);
       printArea.appendChild(label);
 
       new QRCode(qrDiv, {
         text: value,
-        width: 77,  // 2.03cm ≈ 77px
+        width: 77,
         height: 77,
         correctLevel: QRCode.CorrectLevel.H
       });
